@@ -1,5 +1,5 @@
 <template>
-  <q-layout view="lHh Lpr lFf">
+  <q-layout view="lHh Lpr lFf " class="bg-grey-5">
     <q-header elevated>
       <q-toolbar>
         <q-btn
@@ -16,7 +16,7 @@
         <div>Quasar v{{ $q.version }}</div>
       </q-toolbar>
     </q-header>
-
+    <!---
     <q-drawer v-model="leftDrawerOpen" show-if-above bordered>
       <q-list>
         <q-item-label header> Essential Links </q-item-label>
@@ -26,8 +26,8 @@
         </template>
       </q-list>
     </q-drawer>
-
-    <q-page-container>
+  -->
+    <q-page-container class="q-ml-auto q-mr-auto" style="width: 66%">
       <router-view />
     </q-page-container>
   </q-layout>
@@ -35,14 +35,14 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
-import EssentialLinkComponent from 'src/components/EssentialLinkComponent.vue';
+//import EssentialLinkComponent from 'src/components/EssentialLinkComponent.vue';
 import { useRouter } from 'vue-router';
 
 export default defineComponent({
   name: 'MainLayout',
 
   components: {
-    EssentialLinkComponent,
+    // EssentialLinkComponent,
   },
 
   setup() {

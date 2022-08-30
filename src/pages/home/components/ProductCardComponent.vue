@@ -1,40 +1,35 @@
 <template>
-  <q-card flat bordered :class="expanded ? 'card-up' : 'card-down'">
+  <q-card
+    bordered
+    class="card-item"
+    :class="expanded ? 'card-up' : 'card-down'"
+    @mouseover="expanded = true"
+    @mouseout="expanded = false"
+  >
     <div class="q-pa-lg">
       <img :src="product.image" class="card-image" />
     </div>
+    <q-separator />
+
     <q-card-section>
       <div class="text-overline text-orange-9">
         <q-rating v-model="rating" size="2em" color="orange" readonly />
       </div>
-      <div class="text-h5 q-mt-sm q-mb-xs">Title</div>
-      <div class="text-caption text-grey">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua.
+      <div class="text-h6 q-mt-sm text-weight-bolder">
+        {{ formatMoney(product.price) }}
       </div>
+      <div class="text-subtitle" v-if="verifyShipping(product.price)">
+        {{ $t('home.price', { value: formatMoney(product.price / 10) }) }}
+      </div>
+      <div v-else><br /></div>
+      <div class="q-mt-sm text-green" v-html="$t('home.free_shipping')"></div>
     </q-card-section>
-
-    <q-card-actions>
-      <q-btn flat color="dark" label="Share" />
-      <q-btn flat color="primary" label="Book" />
-
-      <q-space />
-
-      <q-btn
-        color="grey"
-        round
-        flat
-        dense
-        :icon="expanded ? 'keyboard_arrow_up' : 'keyboard_arrow_down'"
-        @click="expanded = !expanded"
-      />
-    </q-card-actions>
 
     <q-slide-transition>
       <div v-show="expanded">
         <q-separator />
         <q-card-section class="text-subitle2">
-          {{ 'awd' }}
+          <div class="q-mt-sm q-mb-xs">{{ product.title }}</div>
         </q-card-section>
       </div>
     </q-slide-transition>
@@ -42,6 +37,7 @@
 </template>
 
 <script lang="ts">
+import { formatMoney } from 'src/helpers/numberManipulationHelper';
 import { defineComponent, ref, PropType } from 'vue';
 import { IProduct } from '../models';
 
@@ -59,15 +55,22 @@ export default defineComponent({
     const expanded = ref(false),
       rating = ref(props.product.rating.rate);
 
-    return { expanded, rating };
+    const verifyShipping = (value: number) => (value > 100 ? true : false);
+    return { expanded, rating, formatMoney, verifyShipping };
   },
 });
 </script>
 
 <style scoped lang="scss">
+.card-item {
+  cursor: pointer;
+}
+.card-item:hover {
+  box-shadow: 1px 1px 16px rgb(73, 73, 73);
+}
 .card-image {
-  width: 225px;
-  height: 255px;
+  width: 155px;
+  height: 165px;
   display: block;
   margin: auto;
 }
