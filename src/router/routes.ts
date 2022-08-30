@@ -8,7 +8,7 @@ const routes: RouteRecordRaw[] = [
       {
         path: '',
         name: 'home',
-        component: () => import('pages/IndexPage.vue'),
+        component: () => import('src/pages/home/IndexPage.vue'),
         meta: {
           icon: 'home',
           label: 'menus.home',
@@ -22,7 +22,7 @@ const routes: RouteRecordRaw[] = [
   // but you can also remove it
   {
     path: '/:catchAll(.*)*',
-    component: () => import('pages/ErrorNotFound.vue'),
+    component: () => import('src/pages/404/ErrorNotFound.vue'),
   },
 ];
 
